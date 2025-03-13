@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Summarizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<div class="max-w-2xl mx-auto mt-12">
+  <h1 class="text-4xl font-bold text-center text-indigo-600 mb-8">Smart Study AI Summarizer</h1>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+      <textarea id="inputText" class="w-full border border-gray-300 rounded-md p-3" rows="8" placeholder="Paste your text here..."></textarea>
+
+      <button onclick="summarizeText()" class="mt-4 w-full bg-indigo-600 text-white font-semibold rounded-md py-2 hover:bg-indigo-700 transition duration-200">
+        Summarize
+      </button>
+
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">Summary:</h2>
+        <div id="summaryOutput" class="p-3 bg-gray-50 border border-gray-200 rounded-md min-h-[80px]"></div>
+      </div>
+  </div>
+</div>
+
+<script>
+  async function summarizeText() {
+    const input = document.getElementById("inputText").value;
+
+    document.getElementById('summaryOutput').innerText = 'Summarizing...';
+
+    const response = await fetch("http://localhost:8000/summarize/", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: input })
+    });
+
+    const data = await response.json();
+    document.getElementById('summaryOutput').innerText = data.summary;
+  }
+</script>
+
+</body>
+</html>
