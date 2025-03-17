@@ -29,7 +29,7 @@
   async function summarizeText() {
     const input = document.getElementById("inputText").value;
 
-    document.getElementById('summaryOutput').innerText = 'Summarizing...';
+    document.getElementById('summaryOutput').innerText = 'Summarizing..';
 
     const response = await fetch("http://localhost:8000/summarize/", {
       method: 'POST',
